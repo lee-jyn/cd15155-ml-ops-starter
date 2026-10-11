@@ -39,8 +39,10 @@ def get_latest_f1(client: MlflowClient, experiment_name: str) -> tuple[str, floa
     if experiment is None:
         raise ValueError(f"Experiment '{experiment_name}' not found")
 
+    # Only evaluation runs log f1_weighted (monitoring runs share the experiment)
     runs = client.search_runs(
         experiment_ids=[experiment.experiment_id],
+        filter_string="metrics.f1_weighted >= 0",
         order_by=["attributes.start_time DESC"],
         max_results=1,
     )
