@@ -8,6 +8,8 @@ Run:
 
 import os
 
+import mlflow
+import mlflow.transformers
 import pandas as pd
 from dotenv import load_dotenv
 from sklearn.metrics import (
@@ -18,9 +20,6 @@ from sklearn.metrics import (
     recall_score,
 )
 from transformers import pipeline
-
-# TODO: add mlflow required dependencies
-
 
 load_dotenv()
 
@@ -71,11 +70,27 @@ def main():
     print("\nClassification Report:")
     print(classification_report(y_true, y_pred))
 
-    # TODO: Use MLflow to track the evaluation run.
-    # Set the tracking URI and experiment name from environment variables,
-    # start a run, log the model parameters and computed metrics, then log
-    # and register the pipeline in the Model Registry.
-    # Documentation: https://mlflow.org/docs/latest/tracking.html
+    mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "http://localhost:5000"))
+    mlflow.set_experiment(os.getenv("MLFLOW_EXPERIMENT_NAME", "finbert-evaluation"))
+    model_name = os.getenv("MODEL_NAME", "finbert")
+
+    with mlflow.start_run(run_name="evaluate"):
+        mlflow.log_params(
+            {
+                "model_id": model_id,
+                "task": "text-classification",
+                "max_length": 512,
+                "batch_size": 32,
+                "test_samples": len(texts),
+            }
+        )
+        mlflow.log_metrics(metrics)
+        mlflow.transformers.log_model(
+            transformers_model=classifier,
+            artifact_path="model",
+            registered_model_name=model_name,
+        )
+    print(f"\nModel logged and registered as '{model_name}'")
 
 
 if __name__ == "__main__":
