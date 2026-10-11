@@ -141,7 +141,7 @@ Complete [Dockerfile](starter/Dockerfile) and [docker-compose.yml](starter/docke
 
 ### Task 5 — CI/CD Pipeline
 Complete [scripts/run_deepchecks.py](starter/scripts/run_deepchecks.py) to run property drift and prediction drift checks. 
-Then complete [.github/workflows/ci-cd.yml](starter/.github/workflows/ci-cd.yml) to build a pipeline that on every push to `main`:
+Then complete [.github/workflows/ci-cd.yml](.github/workflows/ci-cd.yml) to build a pipeline that on every push to `main`:
 1. Runs integration tests
 2. Runs Deepchecks model quality checks
 3. Builds and pushes the Docker image to Amazon ECR
@@ -172,7 +172,7 @@ gh secret set AWS_REGION --body "us-east-1"
 gh secret set ECR_REGISTRY --body ""
 ```
 
-**Deliverable:** [scripts/run_deepchecks.py](starter/scripts/run_deepchecks.py), [.github/workflows/ci-cd.yml](starter/.github/workflows/ci-cd.yml)
+**Deliverable:** [scripts/run_deepchecks.py](starter/scripts/run_deepchecks.py), [.github/workflows/ci-cd.yml](.github/workflows/ci-cd.yml)
 
 ### Task 6 — Monitoring
 Add structured JSON logging and instrument [app/main.py](starter/app/main.py) with Prometheus counters and histograms. Configure [prometheus.yml](starter/prometheus.yml) to scrape the `/metrics` endpoint. Then complete [monitoring/stream.py](starter/monitoring/stream.py) to simulate production traffic and log aggregated metrics (sentiment distribution, confidence, latency) to MLflow.

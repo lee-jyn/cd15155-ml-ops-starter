@@ -6,13 +6,6 @@ the required threshold.
 Run:
     python scripts/promote.py
 """
-# TODO: Write a script that :
-# 1- reads the F1 threshold from params.yaml,
-# 2- fetches the weighted F1 score from the most recent MLflow evaluation run,
-# 3- promotes the latest model version to a "production" alias if the score
-# meets the threshold.
-# 4- Print a clear message when the model does not qualify.
-# Documentation: https://mlflow.org/docs/latest/model-registry.html
 
 import os
 

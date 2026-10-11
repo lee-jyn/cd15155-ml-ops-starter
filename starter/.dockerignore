@@ -1,0 +1,14 @@
+.venv/
+.env
+.git/
+.github/
+.dvc/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+data/
+mlruns/
+mlartifacts/
+tests/
+monitoring/
+*.log
